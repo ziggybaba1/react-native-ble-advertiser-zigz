@@ -1,35 +1,30 @@
-plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android' // if using Kotlin in this library
-}
+apply plugin: 'com.android.library'
 
-android {
-    namespace 'react-native-ble-advertiser' // <-- update this to your actual package name
-    compileSdkVersion 34
-    buildToolsVersion "34.0.0"
+def DEFAULT_COMPILE_SDK_VERSION     = 31
+def DEFAULT_TARGET_SDK_VERSION      = 30
+def DEFAULT_MIN_SDK_VERSION 	    = 16
+def DEFAULT_LIFE_CYCLE_RUNTIME_VERSION              = "2.4.1"
+def DEFAULT_LIFE_CYCLE_EXTENSIONS_VERSION           = "2.2.0"
+
+ if (project.android.hasProperty("namespace")) {
+        namespace("com.vitorpamplona.bleavertiser")
+    }
+
+    compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 34
+        minSdkVersion safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
+        targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
+        consumerProguardFiles 'proguard-rules.pro'
         versionCode 1
         versionName "1.0"
-
-        // React Native requires multiDex for large projects
-        multiDexEnabled true
     }
-
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    // Add this if your module uses Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.23"
 }
