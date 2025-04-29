@@ -1,30 +1,35 @@
 plugins {
     id 'com.android.library'
+    id 'org.jetbrains.kotlin.android' // if using Kotlin in this library
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "34"
+    namespace 'react-native-ble-advertiser' // <-- update this to your actual package name
+    compileSdkVersion 34
+    buildToolsVersion "34.0.0"
 
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
-        // Add Java 17 compatibility
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_11
-            targetCompatibility JavaVersion.VERSION_11
-        }
+
+        // React Native requires multiDex for large projects
+        multiDexEnabled true
     }
-    // Enable Java 17 features
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-native:0.72.6'
+    implementation 'com.facebook.react:react-native:+'
+    // Add this if your module uses Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.23"
 }
-
